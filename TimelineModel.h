@@ -76,7 +76,7 @@ public:
     int trim_transition_out(int track_index, int clip_index, int delta);
 
     int get_filters_count(CLIP_CONTEXT clip_context);
-    int insert_filter(int filter_index, CLIP_CONTEXT clip_context, FILTER_CONTEXT filter_context);
+    int insert_filter(CLIP_CONTEXT clip_context, int filter_index, FILTER_CONTEXT filter_context);
     int move_filter(CLIP_CONTEXT clip_context, int filter_index_from, int filter_index_to);
     int remove_filter(CLIP_CONTEXT clip_context, int filter_index);
 }
