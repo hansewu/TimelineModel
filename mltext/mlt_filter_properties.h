@@ -1,0 +1,80 @@
+
+
+#ifndef __MLT_FILTER_PROPERTIES_H__
+#define __MLT_FILTER_PROPERTIES_H__
+
+if (filter && filter->is_valid() && filter->get_length() > 0) {
+                if (QString(filter->get(kShotcutFilterProperty)).startsWith("fadeIn")
+                        || QString(filter->get("mlt_service")) == "webvfx") {
+                    filter->set_in_and_out(in, in + filter->get_length() - 1);
+                }
+            }
+
+ if (QString(filter->get(kShotcutFilterProperty)).startsWith("fadeOut")
+                        || QString(filter->get("mlt_service")) == "webvfx") {
+                    int in = out - filter->get_length() + 1;
+                    filter->set_in_and_out(in, out);
+                }
+
+
+
+//kShotcutFilterProperty
+ m_filter->set("results", NULL, 0);
+
+        sizeAndPositionFilter->set("moviemator:filter", "affineSizePosition");
+        sizeAndPositionFilter->set("transition.fill", 1);
+        sizeAndPositionFilter->set("transition.distort", 0);
+        sizeAndPositionFilter->set("transition.rect_anim_relative", x, y, w, h);
+        sizeAndPositionFilter->set("transition.valign", "top");
+        sizeAndPositionFilter->set("transition.halign", "left");
+        sizeAndPositionFilter->set("transition.threads", 0);
+
+        filter->set("disable", !filter->get_int("disable"));
+
+
+                        // Add video filter if needed.
+                if (!filter) {
+                    if (Settings.playerGPU()) {
+                        Mlt::Filter f(MLT.profile(), "movit.opacity");
+                        f.set(kShotcutFilterProperty, "fadeInMovit");
+                        QString opacity = QString("0~=0; %1=1").arg(duration - 1);
+                        f.set("opacity", opacity.toLatin1().constData());
+                        f.set("alpha", 1);
+                        info->producer->attach(f);
+                        filter.reset(new Mlt::Filter(f));
+                    } else {
+                        Mlt::Filter f(MLT.profile(), "brightness");
+                        f.set(kShotcutFilterProperty, "fadeInBrightness");
+                        QString level = QString("0=0; %1=1").arg(duration - 1);
+                        f.set("level", level.toLatin1().constData());
+                        f.set("alpha", 1);
+                        info->producer->attach(f);
+                        filter.reset(new Mlt::Filter(f));
+                    }
+                } else if (Settings.playerGPU()) {
+                    // Special handling for animation keyframes on movit.opacity.
+                    QString opacity = QString("0~=0; %1=1").arg(duration - 1);
+                    filter->set("opacity", opacity.toLatin1().constData());
+                } else {
+                    // Special handling for animation keyframes on brightness.
+                    QString level = QString("0=0; %1=1").arg(duration - 1);
+                    filter->set("level", level.toLatin1().constData());
+                }
+                // Adjust video filter.
+                filter->set_in_and_out(info->frame_in, info->frame_in + duration - 1);
+            }
+
+            // Get audio filter.
+            filter.reset(getFilter("fadeInVolume", info->producer));
+
+            // Add audio filter if needed.
+            if (!filter) {
+                Mlt::Filter f(MLT.profile(), "volume");
+                f.set(kShotcutFilterProperty, "fadeInVolume");
+                f.set("gain", 0);
+                f.set("end", 1);
+
+
+filter->get_int("_loader")
+
+#endif // __MLT_FILTER_PROPERTIES_H__

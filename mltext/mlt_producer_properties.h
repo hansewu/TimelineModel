@@ -1,0 +1,191 @@
+
+
+#ifndef __MLT_PRODUCER_PROPERTIES_H__
+#define __MLT_PRODUCER_PROPERTIES_H__
+
+if (!qstrcmp(m_producer->get("mlt_service"), "avformat"))
+        if (m_url.isEmpty() && QString(m_producer->get("xml")) == "was here") {
+            if (m_producer->get_int("_original_type") != tractor_type ||
+               (m_producer->get_int("_original_type") == tractor_type && m_producer->get("moviemator")))
+                m_url = url;
+
+
+bool Controller::isSeekable() const
+{
+    bool seekable = false;
+    if (m_producer && m_producer->is_valid()) {
+        if (m_producer->get("force_seekable")) {
+            seekable = m_producer->get_int("force_seekable");
+        } else {
+            seekable = m_producer->get_int("seekable");
+            if (!seekable && m_producer->get("mlt_type")) {
+                // XXX what was this for?
+                seekable = !strcmp(m_producer->get("mlt_type"), "mlt_producer");
+            }
+            if (!seekable) {
+                // These generators can take an out point to define their length.
+                // TODO: Currently, these max out at 15000 frames, which is arbitrary.
+                QString service(m_producer->get("mlt_service"));
+                seekable = (service == "color") || service.startsWith("frei0r.") || (service =="tone");
+            }
+        }
+    }
+    return seekable;
+}
+
+bool Controller::isMultitrack() const
+{
+    return m_producer && m_producer->is_valid()
+        && !m_producer->get_int(kShotcutVirtualClip)
+        && (m_producer->get_int("_original_type") == tractor_type || resource() == "<tractor>")
+            && (m_producer->get("moviemator"));
+}
+
+
+ result = info->producer->get("moviemator:detail");
+ result = info->producer->get(kShotcutCaptionProperty);
+    if (!info->producer->get(kShotcutHashProperty))
+                MLT.getHash(*info->producer);
+
+ double oldSpeed = qstrcmp("timewarp", info->producer->get("mlt_service")) ? 1.0 : info->producer->get_double("warp_speed");
+ double newSpeed = qstrcmp("timewarp", after->get("mlt_service")) ? 1.0 : after->get_double("warp_speed");
+
+QString resource(producer->get("moviemator:template"));
+producer->get("moviemator:imageName")
+
+QString AttachedFiltersModel::producerTitle() const
+{
+ //   Q_ASSERT(m_producer && m_producer->is_valid());
+
+    if (m_producer && m_producer->is_valid()) {
+        if (m_producer->get(kShotcutTransitionProperty))
+            return tr("Transition");
+        if (m_producer->get(kTrackNameProperty))
+            return tr("for Track: %1").arg(QString::fromUtf8(m_producer->get(kTrackNameProperty)));
+        if (m_producer->get("moviemator:imageName"))
+            return QString(m_producer->get("moviemator:imageName"));
+        if (tractor_type == m_producer->type())
+            return tr("for Timeline");
+        if (m_producer->get(kShotcutCaptionProperty))
+            return QString::fromUtf8(m_producer->get(kShotcutCaptionProperty));
+        if (m_producer->get("resource"))
+            return Util::baseName(QString::fromUtf8(m_producer->get("resource")));
+    }
+    return QString();
+}
+
+
+if (result == "<tractor>") {
+                    result = QString::fromUtf8(info->producer->get("moviemator:imageName"));
+                    result += "-" + QString::fromUtf8(info->producer->get("moviemator:animationName"));
+                }
+
+else if (producer->get_int("error"))
+
+
+
+
+//#define kShotcutVirtualClip "moviemator:virtual"  //defined in shotcut_mlt_properties.h
+kPlaylistIndexProperty
+kThumbnailInProperty
+
+p.first->set(kAudioLevelsProperty, levelsCopy, 0, (mlt_destructor) deleteQVariantList);
+
+ui->notesTextEdit->setPlainText(QString::fromUtf8(m_tempProducer->get(kCommentProperty)));  //avformat
+int n = m_tempProducer->get_int("meta.media.nb_streams");  //avformat
+MLT.producer()->get_int(kBackgroundCaptureProperty)
+
+
+#define kProducer_MltService_Property "mlt_service"
+mute_on_pause
+resource
+mlt_type
+
+mix_in
+mix_out
+
+    producer->set("meta.fx_cut", 1);
+
+    producer->set("in", 0);
+    producer->set("out", 100);
+    producer->set("resource", meta->name().toUtf8().constData());
+    producer->set("thumbnail", meta->thumbnail().toUtf8().constData());
+
+    length  //service == "avformat" || service == "avformat-novalidate" || service == "timewarp"
+
+            info->producer->set(kFilterInProperty, info->frame_in);
+        info->producer->set(kFilterOutProperty, info->frame_out);
+        if (MLT.isImageProducer(info->producer))
+            info->producer->set("out", info->cut->get_int("out"));
+        info->producer->set(kMultitrackItemProperty, 1);
+
+
+                QString imageWStr(producer->get("moviemator:imageW"));
+        QString imageHStr(producer->get("moviemator:imageH"));
+
+        //image producer
+        ui->aspectNumSpinBox->setValue(p->get_int(kAspectRatioNumerator));
+        ui->aspectDenSpinBox->setValue(p->get_int(kAspectRatioDenominator));
+            if (m_tempProducer->get_int("ttl"))
+        ui->repeatSpinBox->setValue(m_tempProducer->get_int("ttl"));
+
+        
+    ui->sequenceCheckBox->setChecked(m_tempProducer->get_int(kShotcutSequenceProperty));
+
+p->set(kMultitrackItemProperty, producer->get(kMultitrackItemProperty));
+
+MLT.producer()->set("ignore_points", 1);
+MLT.producer()->set("length", length);
+    p->set(kMultitrackItemProperty, producer->get(kMultitrackItemProperty));
+
+        if (info && info->producer->is_valid() && QString(info->producer->get("id")) == "black")
+            info->producer->set("set.test_audio", 0);
+
+
+    m_tempProducer->set(kShotcutCaptionProperty, caption.toUtf8().constData());  //AVFORMAT
+    m_tempProducer->set(kShotcutDetailProperty, s.toUtf8().constData());  //AVFORMAT
+    m_tempProducer->set("audio_index", ui->audioTrackComboBox->itemData(index).toInt());
+        m_tempProducer->set("video_index", ui->videoTrackComboBox->itemData(index).toInt());
+    int progressive = m_tempProducer->get_int("meta.media.progressive");
+    m_tempProducer->set("force_progressive", QString::number(index).toLatin1().constData());
+            int tff = m_tempProducer->get_int("meta.media.top_field_first");
+    m_tempProducer->set("force_tff", QString::number(index).toLatin1().constData());
+
+    double new_sar = double(ui->aspectNumSpinBox->value() * m_tempProducer->get_int("meta.media.height")) /
+            double(ui->aspectDenSpinBox->value() * m_tempProducer->get_int("meta.media.width"));
+        double sar = m_tempProducer->get_double("meta.media.sample_aspect_num");
+        if (m_tempProducer->get_double("meta.media.sample_aspect_den") > 0)
+            sar /= m_tempProducer->get_double("meta.media.sample_aspect_den");
+        if (m_tempProducer->get("force_aspect_ratio") || new_sar != sar) {
+            m_tempProducer->set("force_aspect_ratio", QString::number(new_sar).toLatin1().constData());
+            m_tempProducer->set(kAspectRatioNumerator, ui->aspectNumSpinBox->text().toLatin1().constData());
+            m_tempProducer->set(kAspectRatioDenominator, ui->aspectDenSpinBox->text().toLatin1().constData());
+        }
+
+     m_tempProducer->set("video_delay", double(value) / 1000);
+    m_tempProducer->set(kCommentProperty, ui->notesTextEdit->toPlainText().toUtf8().constData());
+
+    p->set("error", 1);//AVFOUNDATION
+        p->set("force_seekable", 0);
+    p->set(kBackgroundCaptureProperty, ui->backgroundCheckBox->isChecked()? 1: 0);
+
+    //frei0r.test_pat_B 
+    colorbarswidget属性略
+    imageproducerwidget 
+
+ track->set(kTrackNameProperty, value.toUtf8().constData());
+track->set("hide", hide);
+track->set(kTrackLockProperty, lock);
+
+QString trackId = track->get("id");
+
+int hide = track->get_int("hide");
+track->get(kVideoTrackProperty)
+track->get(kAudioTrackProperty)
+
+track->get_int(kTrackLockProperty);
+
+
+
+
+#endif // __MLT_PRODUCER_PROPERTIES_H__
