@@ -8,6 +8,10 @@ frame.get_int("rendered")
 data = d->f.get_data("alpha", size );
 frame.set("movit.convert.use_texture", 1);
 
+const char* key[2] = { "meta.media.audio_level.0", "meta.media.audio_level.1"};
+frame->get_double(key[channel])
+frame->get_int("test_audio")
+
 int SharedFrame::get_image_width() const
 {
     return d->f.get_int( "width" );

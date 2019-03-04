@@ -3,9 +3,12 @@
 #ifndef __MLT_FILTER_PROPERTIES_H__
 #define __MLT_FILTER_PROPERTIES_H__
 
+filter->get_int("_loader")
 if (filter && filter->is_valid() && filter->get_length() > 0) {
+
                 if (QString(filter->get(kShotcutFilterProperty)).startsWith("fadeIn")
                         || QString(filter->get("mlt_service")) == "webvfx") {
+
                     filter->set_in_and_out(in, in + filter->get_length() - 1);
                 }
             }
@@ -16,18 +19,20 @@ if (filter && filter->is_valid() && filter->get_length() > 0) {
                     filter->set_in_and_out(in, out);
                 }
 
-
+ f.set(kShotcutFilterProperty, "fadeInMovit"); f.set(kShotcutFilterProperty, "fadeInMovit");
 
 //kShotcutFilterProperty
  m_filter->set("results", NULL, 0);
 
         sizeAndPositionFilter->set("moviemator:filter", "affineSizePosition");
+
+        /*
         sizeAndPositionFilter->set("transition.fill", 1);
         sizeAndPositionFilter->set("transition.distort", 0);
         sizeAndPositionFilter->set("transition.rect_anim_relative", x, y, w, h);
         sizeAndPositionFilter->set("transition.valign", "top");
         sizeAndPositionFilter->set("transition.halign", "left");
-        sizeAndPositionFilter->set("transition.threads", 0);
+        sizeAndPositionFilter->set("transition.threads", 0);*/
 
         filter->set("disable", !filter->get_int("disable"));
 
@@ -75,6 +80,6 @@ if (filter && filter->is_valid() && filter->get_length() > 0) {
                 f.set("end", 1);
 
 
-filter->get_int("_loader")
+
 
 #endif // __MLT_FILTER_PROPERTIES_H__

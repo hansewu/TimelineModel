@@ -82,7 +82,11 @@ if (result == "<tractor>") {
 
 else if (producer->get_int("error"))
 
-
+    if (producer.get(kFilterInProperty))
+        // Shots on the timeline will set the producer to the cut parent.
+        // However, we want time-based filters such as fade in/out to use
+        // the cut's in/out and not the parent's.
+        return producer.get_int(kFilterInProperty);
 
 
 //#define kShotcutVirtualClip "moviemator:virtual"  //defined in shotcut_mlt_properties.h
@@ -129,7 +133,7 @@ mix_out
             if (m_tempProducer->get_int("ttl"))
         ui->repeatSpinBox->setValue(m_tempProducer->get_int("ttl"));
 
-        
+
     ui->sequenceCheckBox->setChecked(m_tempProducer->get_int(kShotcutSequenceProperty));
 
 p->set(kMultitrackItemProperty, producer->get(kMultitrackItemProperty));

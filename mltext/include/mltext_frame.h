@@ -28,6 +28,9 @@ namespace Mlt
 			ExtFrame& operator=( const ExtFrame &frame );
 
 			set_movit_use_texture(int use_texture);//frame.set("movit.convert.use_texture", 1);
+            //frame->set("rescale.interp", "bilinear");
+            //frame->set("deinterlace_method", "onefield");
+            //frame->set("top_field_first", -1);
 
 			uint8_t *get_image( mlt_image_format &format, int &w, int &h, int writable = 0 );
 			unsigned char *fetch_image( mlt_image_format format, int w, int h, int writable = 0 );
