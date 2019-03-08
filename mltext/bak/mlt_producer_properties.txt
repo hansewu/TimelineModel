@@ -97,7 +97,8 @@ p.first->set(kAudioLevelsProperty, levelsCopy, 0, (mlt_destructor) deleteQVarian
 
 ui->notesTextEdit->setPlainText(QString::fromUtf8(m_tempProducer->get(kCommentProperty)));  //avformat
 int n = m_tempProducer->get_int("meta.media.nb_streams");  //avformat
-MLT.producer()->get_int(kBackgroundCaptureProperty)
+
+MLT.producer()->get_int(kBackgroundCaptureProperty)  //Avfoundation
 
 
 #define kProducer_MltService_Property "mlt_service"
