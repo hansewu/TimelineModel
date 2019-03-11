@@ -19,6 +19,7 @@ namespace Mlt
 		private:
 			Filter m_Filter;
 		public:
+			ExtFilter( Profile& profile, const char *id, const char *service = NULL );
 			ExtFilter( Filter &filter );
 			ExtFilter( ExtFilter &filter );
 			virtual ~ExtFilter( );

@@ -7,6 +7,7 @@
 
 #include <framework/mlt.h>
 #include "MltProperties.h"
+#include "mltext_consumer_observer.h"
 
 namespace Mlt
 {
@@ -18,6 +19,7 @@ namespace Mlt
 	{
 		private:
 			Consumer m_Consumer;
+			std::list<ConsumerObserver *> m_ConsumerObservers;
 		public:
 			public:
 			ExtConsumer( );
@@ -30,6 +32,10 @@ namespace Mlt
 			virtual ~Consumer( );
 		//	virtual mlt_consumer get_consumer( );
 		//	mlt_service get_service( );
+			void add_consumer_observer( ConsumerObserver *observer );
+			void remove_consumer_observer( ConsumerObserver *observer );
+			std::list<ConsumerObserver *> consumer_observers();
+			
 			virtual int connect( Service &service );
 			int run( );
 			int start( );
@@ -78,8 +84,9 @@ namespace Mlt
 			int set_real_time(int enable, int multi_index = -1);// m_consumer->set("real_time", realTime());
 			int set_scrub_audio(int enable, int multi_index = -1);//m_consumer->set("scrub_audio", scrubAudio);
 			int set_refresh(int enable, int multi_index = -1);//m_consumer->set("refresh", 1);
-
-			
+		private:
+			void listen_event();
+			static void on_frame_show(mlt_consumer, void* self, mlt_frame frame);
         
 	};
 
@@ -88,12 +95,25 @@ namespace Mlt
 
 		public:
 			public:
-			SDLAudioConsumer(bool isMulti); //for sdl audio only //reconfigure(bool isMulti)
+			SDLAudioConsumer(Profile& profile); //for sdl audio only //reconfigure(bool isMulti)
 
 			virtual ~SDLAudioConsumer( );
 
 	};
 
+	class MLTPP_DECLSPEC AVFormatConsumer : public ExtConsumer
+	{
+
+		public:
+			public:
+			AVFormatConsumer(Profile& profile); 
+
+			virtual ~AVFormatConsumer();
+	
+			void get_format_list(char **list, int *count);
+			void get_acodec_list(char **list, int *count);
+			void get_vcodec_list(char **list, int *count);
+	};
 
 }
 
