@@ -78,6 +78,7 @@ int tp_init_template_module(const MM_TEMPLATE_CONFIG *pConfig);//初始化，传
 int tp_exit_template_module();//退出模块
 
 MM_MLT_HANDLE mm_open_mlt_file(const char *mlt_file_name);//打开模板和工程文件都可以
+MM_MLT_HANDLE mm_open_from_mlt_producer(void *mlt_template_producer);//转换打开过的模板 Mlt::producer
 
 int mm_close_mlt_file(MM_MLT_HANDLE mlt_info);
 
