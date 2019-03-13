@@ -111,11 +111,13 @@ int tp_get_can_replace_resource(MM_MLT_HANDLE  mlt_info,  deque<MM_PRODUCER_INDE
 //获取允许设置参数的集合
 int tp_get_can_set_filters_parameter(MM_MLT_HANDLE  mlt_info,  deque<MM_FILTER_PARAMETER_INDEX> &out_can_set_parameters);
 
-//替换资源 
+
+//实现方式：下面两个信息，作为MM_MLT_HANDLE PRODUCER的属性信息存储，这样重新打开工程，仍然可以调整里面的参数
+//替换资源
 int tp_replace_resource(MM_MLT_HANDLE  mlt_info, int track_index, int producer_index, const char *file_name,
 							int64_t frame_in, int64_t frame_out);
 
-//设置属性
+//设置滤镜参数属性
 int tp_set_filter_parameter(MM_PRODUCER_HANDLE, int filter_index, int para_index, UniVariant &value);
 
 //模板分两种：
