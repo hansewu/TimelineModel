@@ -72,6 +72,7 @@ typedef struct
 }MM_MLT_INFO;
 */
 
+typedef void * MM_FILTER_TYPE;//接口定义 实际存储一类滤镜的信息
 
 int tp_init_template_module(const MM_TEMPLATE_CONFIG *pConfig);//初始化，传递配置信息
 
@@ -92,9 +93,11 @@ int mm_close_producer(MM_PRODUCER_HANDLE producer);
 
 int mm_get_filters_count(MM_PRODUCER_HANDLE producer);
 
-int mm_get_parameters_count(MM_PRODUCER_HANDLE producer, int filter_index);
+MM_FILTER_TYPE mm_get_filterss_type(MM_PRODUCER_HANDLE producer, int filter_index);
 
-int mm_get_parameter_info(MM_PRODUCER_HANDLE producer, int filter_index, int parameter_index, MM_PARAMETER_INFO &parameter_info);
+int mm_get_filter_parmeters_count(MM_FILTER_TYPE);
+
+int mm_get_parameter_info(MM_FILTER_TYPE filter_type, int parameter_index, MM_PARAMETER_INFO &parameter_info);
 
 int mm_set_speed(MM_MLT_HANDLE  mlt_info, double speed); //设置速率变快，变慢
 
@@ -117,8 +120,10 @@ int tp_get_can_set_filters_parameter(MM_MLT_HANDLE  mlt_info,  deque<MM_FILTER_P
 int tp_replace_resource(MM_MLT_HANDLE  mlt_info, int track_index, int producer_index, const char *file_name,
 							int64_t frame_in, int64_t frame_out);
 
+int tp_get_filter_key_frame_count(MM_PRODUCER_HANDLE, int filter_index, int para_index);
+
 //设置滤镜参数属性
-int tp_set_filter_parameter(MM_PRODUCER_HANDLE, int filter_index, int para_index, UniVariant &value);
+int tp_set_filter_parameter(MM_PRODUCER_HANDLE, int filter_index, int para_index, int key_frame, UniVariant &value);
 
 //模板分两种：
 //单PRODUCER xml 模板  不ZIP压缩
