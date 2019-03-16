@@ -190,11 +190,11 @@ namespace Mlt
         public:
                 ExtExProducer( ExtProducer &producer );
                 ExtExProducer( ExtExProducer &producer );
-                virtual ~ExtProducer( );
+                virtual ~ExtExProducer( );
 
                 //扩展的PRODUCER暂时允许直接用键值访问
-                set_property(const char *key, int value);
-                set_property(const char *key, const char *value);
+                void set_property(const char *key, int value);
+                void set_property(const char *key, const char *value);
                 int get_property(const char *key);
                 //AVFORMAT
                 //    m_tempProducer->set("audio_index", ui->audioTrackComboBox->itemData(index).toInt());
