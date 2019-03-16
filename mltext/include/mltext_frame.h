@@ -6,7 +6,7 @@
 #include "MltConfig.h"
 
 #include <framework/mlt.h>
-#include "MltProperties.h"
+#include <Mlt.h>
 
 namespace Mlt
 {
@@ -27,7 +27,7 @@ namespace Mlt
 
 			ExtFrame& operator=( const ExtFrame &frame );
 
-			set_movit_use_texture(int use_texture);//frame.set("movit.convert.use_texture", 1);
+			void set_movit_use_texture(int use_texture);//frame.set("movit.convert.use_texture", 1);
             //frame->set("rescale.interp", "bilinear");
             //frame->set("deinterlace_method", "onefield");
             //frame->set("top_field_first", -1);
@@ -44,7 +44,7 @@ namespace Mlt
 			unsigned char *get_alpha_data(); //data = d->f.get_data("alpha", size );
 
 			int get_rendered_state(); //frame.get_int("rendered")
-			int get_image_format(); // (mlt_image_format)d->f.get_int( "format" );
+			mlt_image_format get_image_format(); // (mlt_image_format)d->f.get_int( "format" );
 			mlt_audio_format get_audio_format() const;
 			//return (mlt_audio_format)d->f.get_int( "audio_format" );
 
@@ -52,19 +52,19 @@ namespace Mlt
 			//const char* key[2] = { "meta.media.audio_level.0", "meta.media.audio_level.1"};
 			//frame->get_double(key[channel])
 
-			int get_image_width() const
+			int get_image_width() const;
 		    //return d->f.get_int( "width" );
 
-			int get_image_height() const
+			int get_image_height() const;
     		//return d->f.get_int( "height" );
 
-			int get_audio_channels() const
+			int get_audio_channels() const;
     		//return d->f.get_int( "audio_channels" );
 
-			int get_audio_frequency() const
+			int get_audio_frequency() const;
     		//return d->f.get_int( "audio_frequency" );
 
-			int get_audio_samples() const
+			int get_audio_samples() const;
     		//return d->f.get_int( "audio_samples" );
 
 

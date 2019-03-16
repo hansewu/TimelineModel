@@ -4,10 +4,12 @@
 #define __MLT_EXT_CONSUMER_H__
 
 #include "MltConfig.h"
-
+#include <Mlt.h>
 #include <framework/mlt.h>
 #include "MltProperties.h"
 #include "mltext_consumer_observer.h"
+#include <list>
+
 
 namespace Mlt
 {
@@ -18,18 +20,18 @@ namespace Mlt
 	class MLTPP_DECLSPEC ExtConsumer 
 	{
 		private:
-			Consumer m_Consumer;
+			Consumer *m_Consumer;
 			std::list<ConsumerObserver *> m_ConsumerObservers;
 		public:
 			public:
 			ExtConsumer( );
-			ExtConssumer(bool isMulti); //for sdl audio only
+			ExtConsumer(bool isMulti); //for sdl audio only
 			ExtConsumer( Profile& profile );
 			ExtConsumer( Profile& profile, const char *id , const char *service = NULL );
 			ExtConsumer( Service &consumer );
 			ExtConsumer( ExtConsumer &consumer );
 		//	ExtConsumer( mlt_consumer consumer );
-			virtual ~Consumer( );
+			virtual ~ExtConsumer( );
 		//	virtual mlt_consumer get_consumer( );
 		//	mlt_service get_service( );
 			void add_consumer_observer( ConsumerObserver *observer );
