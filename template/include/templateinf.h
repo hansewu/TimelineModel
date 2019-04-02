@@ -105,7 +105,7 @@ int mm_is_template_file(MM_MLT_HANDLE  mlt_info);//是否为模板文件
 
 void * mm_get_mlt_producer(MM_PRODUCER_HANDLE producer);//返回 Mlt::producer 为避免引用头文件，直接写成void *
 
-int mm_get_resource_info(MM_PRODUCER_HANDLE producer, string out_file_name,
+int mm_get_resource_info(MM_PRODUCER_HANDLE producer, string &out_file_name,
 							int64_t *p_out_frame_in, int64_t *p_out_frame_out);//获取资源信息
 
 //获取允许替换的资源文件对应的PRODUCER
